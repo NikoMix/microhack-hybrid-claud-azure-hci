@@ -1,0 +1,17 @@
+{
+  // Model Context Protocol servers for VS Code Copilot agent mode.
+  // Docs: https://code.visualstudio.com/docs/copilot/chat/mcp-servers
+  // The Azure MCP server is started on demand via npx (no install required).
+  // The GitHub MCP server is the hosted remote endpoint (OAuth handled by VS Code).
+  "servers": {
+    "azure": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@azure/mcp@latest", "server", "start"]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  }
+}

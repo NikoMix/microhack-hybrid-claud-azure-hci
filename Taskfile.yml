@@ -1,0 +1,81 @@
+# Taskfile — https://taskfile.dev  (go-task, MIT licensed)
+# Run `task` to list available tasks.
+version: "3"
+
+vars:
+  TF_BASE: infra/terraform/base
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+    silent: true
+
+  setup:
+    desc: Install git hooks and verify toolchain
+    cmds:
+      - pre-commit install
+      - 'echo "Toolchain:" && az version --output table || true'
+      - terraform version
+      - kubectl version --client=true || true
+
+  lint:
+    desc: Run all linters (markdown, terraform, shell, actions)
+    cmds:
+      - task: lint:md
+      - task: lint:tf
+      - task: lint:actions
+
+  lint:md:
+    desc: Lint Markdown
+    cmds:
+      - markdownlint-cli2 "**/*.md" "#node_modules" "#**/.terraform"
+
+  lint:tf:
+    desc: Format-check and lint Terraform
+    cmds:
+      - terraform -chdir={{.TF_BASE}} fmt -check -recursive
+      - tflint --chdir={{.TF_BASE}} --config="$(pwd)/.tflint.hcl"
+
+  lint:actions:
+    desc: Lint GitHub Actions workflows
+    cmds:
+      - actionlint
+
+  fmt:
+    desc: Auto-format Terraform and run pre-commit fixers
+    cmds:
+      - terraform fmt -recursive .
+      - pre-commit run --all-files || true
+
+  validate:
+    desc: terraform init + validate for the base environment
+    dir: "{{.TF_BASE}}"
+    cmds:
+      - terraform init -backend=false
+      - terraform validate
+
+  security:
+    desc: Static security analysis (checkov + gitleaks)
+    cmds:
+      - checkov --quiet --compact --directory . --framework terraform || true
+      - gitleaks detect --no-banner --redact --config .gitleaks.toml
+
+  links:
+    desc: Check Markdown links with lychee
+    cmds:
+      - lychee --no-progress --accept 200,206,429 "**/*.md" || true
+
+  deploy:base:
+    desc: Deploy the shared base environment (challenge-00)
+    dir: "{{.TF_BASE}}"
+    cmds:
+      - terraform init
+      - terraform apply -auto-approve
+
+  destroy:base:
+    desc: Tear down the shared base environment
+    dir: "{{.TF_BASE}}"
+    cmds:
+      - terraform destroy -auto-approve

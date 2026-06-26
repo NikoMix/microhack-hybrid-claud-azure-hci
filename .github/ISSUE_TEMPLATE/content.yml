@@ -1,0 +1,22 @@
+name: "📝 Content / lab issue"
+description: Report a problem or suggest an improvement in the lab content.
+title: "<short summary>"
+labels: ["content"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where (challenge / file / step)
+      placeholder: "e.g. challenge-02-observability/README.md, Task 3"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong or could be better?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested fix (optional)

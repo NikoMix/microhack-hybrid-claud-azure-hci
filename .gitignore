@@ -1,0 +1,57 @@
+# --- Secrets & environment ---
+.env
+.env.*
+!.env.sample
+*.pem
+*.pfx
+*.key
+azureauth.json
+credentials.json
+
+# --- Terraform ---
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+crash.*.log
+.terraform.lock.hcl.bak
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+tfplan
+*.tfplan
+
+# --- Azure CLI / Kube ---
+.azure/
+kubeconfig
+*.kubeconfig
+
+# --- Node / tooling ---
+node_modules/
+npm-debug.log*
+.pnpm-store/
+
+# --- Python tooling ---
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+
+# --- Editor / OS ---
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+*.log
+
+# --- Build / scratch ---
+dist/
+out/
+tmp/
+.cache/

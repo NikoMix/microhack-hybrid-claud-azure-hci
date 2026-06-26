@@ -1,0 +1,46 @@
+name: "🧩 Challenge build / task"
+description: Track authoring or improvement of a microhack challenge or workstream.
+title: "[challenge-0X] <short summary>"
+labels: ["challenge"]
+body:
+  - type: dropdown
+    id: challenge
+    attributes:
+      label: Challenge / workstream
+      options:
+        - "challenge-00-setup"
+        - "challenge-01-arc-foundations"
+        - "challenge-02-observability"
+        - "challenge-03-resiliency"
+        - "challenge-04-aks-arc"
+        - "challenge-05-specialization-readiness"
+        - "challenge-06-ai-capstone"
+        - "docs / trainer guide"
+        - "infra / base"
+        - "ci / quality"
+        - "agents / skills / mcp"
+    validations:
+      required: true
+  - type: input
+    id: moduleb
+    attributes:
+      label: Module B control(s) covered
+      placeholder: "e.g. B.1.1, B.2.1"
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / definition of done
+      description: What must exist for this to be complete?
+      value: |
+        - [ ] Student `README.md` (required headings)
+        - [ ] `trainer-notes.md` (timing, talk track, demo, pitfalls, checkpoints)
+        - [ ] Terraform (AVM-first) validates & passes tflint/checkov (if any)
+        - [ ] Scripts pass shellcheck and are idempotent
+        - [ ] Links/markdown lint clean
+        - [ ] Module B mapping stated
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / dependencies

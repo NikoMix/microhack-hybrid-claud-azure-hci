@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Module B requirements (source specialization repo)
+    url: https://github.com/NikoMix/specialization-hybrid-cloud-azure-hci
+    about: The Advanced Specialization engagement toolkit this lab maps to.
+  - name: Microsoft Azure Local documentation
+    url: https://learn.microsoft.com/azure/azure-local/
+    about: Official Azure Local product documentation.
