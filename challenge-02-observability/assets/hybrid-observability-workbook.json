@@ -1,0 +1,212 @@
+{
+  "version": "Notebook/1.0",
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json",
+  "fallbackResourceIds": [
+    "Azure Monitor"
+  ],
+  "items": [
+    {
+      "type": 1,
+      "name": "header",
+      "content": {
+        "json": "# 🛰️ Hybrid Observability — Azure Local Module B\n\nUnified view of the **server-to-migrate** across Azure Monitor: availability (heartbeat), VM Insights performance, Change Tracking & Inventory, and system log health. Pick a **time range** and the shared base **Log Analytics workspace** to begin.\n\n> 💡 Heartbeat and InsightsMetrics flow once the Azure Monitor Agent + VM Insights DCR are associated. ConfigurationChange requires the Change Tracking DCR. Syslog requires the Linux syslog data source."
+      }
+    },
+    {
+      "type": 9,
+      "name": "parameters",
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "0a1b2c3d-0001-4a00-8a00-000000000001",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "label": "Time range",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 86400000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                { "durationMs": 3600000 },
+                { "durationMs": 14400000 },
+                { "durationMs": 43200000 },
+                { "durationMs": 86400000 },
+                { "durationMs": 172800000 },
+                { "durationMs": 604800000 }
+              ]
+            }
+          },
+          {
+            "id": "0a1b2c3d-0002-4a00-8a00-000000000002",
+            "version": "KqlParameterItem/1.0",
+            "name": "Workspace",
+            "label": "Log Analytics workspace",
+            "type": 5,
+            "isRequired": true,
+            "multiSelect": false,
+            "typeSettings": {
+              "resourceTypeFilter": {
+                "microsoft.operationalinsights/workspaces": true
+              },
+              "additionalResourceOptions": []
+            },
+            "crossComponentResources": [
+              "value::all"
+            ]
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      }
+    },
+    {
+      "type": 1,
+      "name": "availability-header",
+      "content": {
+        "json": "## ✅ Availability — heartbeat"
+      }
+    },
+    {
+      "type": 3,
+      "name": "heartbeat-grid",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Heartbeat\n| summarize LastHeartbeat = max(TimeGenerated), OSType = any(OSType), Version = any(Version) by Computer, _ResourceId\n| extend Status = iff(LastHeartbeat < ago(5m), '⚠️ Stale', '✅ Healthy')\n| project Computer, Status, LastHeartbeat, OSType, AgentVersion = Version, _ResourceId\n| order by LastHeartbeat desc",
+        "size": 0,
+        "title": "Latest heartbeat per machine",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspace}"
+        ],
+        "visualization": "table",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Status",
+              "formatter": 18,
+              "formatOptions": {
+                "thresholdsOptions": "icons",
+                "thresholdsGrid": [
+                  { "operator": "contains", "thresholdValue": "Stale", "representation": "2", "text": "{0}" },
+                  { "operator": "Default", "representation": "success", "text": "{0}" }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": 1,
+      "name": "performance-header",
+      "content": {
+        "json": "## 📈 Performance — VM Insights"
+      }
+    },
+    {
+      "type": 3,
+      "name": "cpu-timechart",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "InsightsMetrics\n| where Origin == 'vm.azm.ms'\n| where Namespace == 'Processor' and Name == 'UtilizationPercentage'\n| summarize CpuPercent = avg(Val) by bin(TimeGenerated, 5m), Computer\n| order by TimeGenerated asc",
+        "size": 0,
+        "title": "Average CPU utilization (%)",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspace}"
+        ],
+        "visualization": "timechart"
+      }
+    },
+    {
+      "type": 3,
+      "name": "memory-timechart",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "InsightsMetrics\n| where Origin == 'vm.azm.ms'\n| where Namespace == 'Memory' and Name == 'AvailableMB'\n| summarize AvailableMB = avg(Val) by bin(TimeGenerated, 5m), Computer\n| order by TimeGenerated asc",
+        "size": 0,
+        "title": "Available memory (MB)",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspace}"
+        ],
+        "visualization": "timechart"
+      }
+    },
+    {
+      "type": 1,
+      "name": "changetracking-header",
+      "content": {
+        "json": "## 🧾 Change Tracking & Inventory"
+      }
+    },
+    {
+      "type": 3,
+      "name": "configchange-grid",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "ConfigurationChange\n| project TimeGenerated, Computer, ConfigChangeType, ChangeCategory, SvcName = column_ifexists('SvcName', ''), SoftwareName = column_ifexists('SoftwareName', '')\n| order by TimeGenerated desc\n| take 100",
+        "size": 0,
+        "title": "Recent configuration changes (software, services, files)",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspace}"
+        ],
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 1,
+      "name": "syslog-header",
+      "content": {
+        "json": "## 🩺 System log health — Syslog errors"
+      }
+    },
+    {
+      "type": 3,
+      "name": "syslog-grid",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Syslog\n| where SeverityLevel in ('err', 'crit', 'alert', 'emerg')\n| summarize Count = count(), LastSeen = max(TimeGenerated) by Computer, Facility, SeverityLevel\n| order by Count desc",
+        "size": 0,
+        "title": "Error-and-above syslog events by facility",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": [
+          "{Workspace}"
+        ],
+        "visualization": "table"
+      }
+    }
+  ],
+  "styleSettings": {},
+  "isLocked": false
+}
