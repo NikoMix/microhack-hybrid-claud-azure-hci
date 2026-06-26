@@ -138,7 +138,6 @@ resource "local_sensitive_file" "ssh_private_key" {
 # Workload VM: the "server to migrate" (raw azurerm)
 # ---------------------------------------------------------------------------
 
-# checkov:skip=CKV_AZURE_119:Lab-only public IP — pupils SSH directly to the VM, which is later Azure Arc-onboarded.
 resource "azurerm_public_ip" "vm" {
   name                = local.public_ip_name
   resource_group_name = module.resource_group.name
@@ -149,6 +148,7 @@ resource "azurerm_public_ip" "vm" {
 }
 
 resource "azurerm_network_interface" "vm" {
+  # checkov:skip=CKV_AZURE_119:Lab-only public IP — pupils SSH directly to the VM, which is later Azure Arc-onboarded.
   name                = local.nic_name
   resource_group_name = module.resource_group.name
   location            = var.location
@@ -162,8 +162,8 @@ resource "azurerm_network_interface" "vm" {
   }
 }
 
-# checkov:skip=CKV_AZURE_50:Lab VM intentionally has no extension protection lock so later challenges can install the Arc agent.
 resource "azurerm_linux_virtual_machine" "vm" {
+  # checkov:skip=CKV_AZURE_50:Lab VM intentionally has no extension protection lock so later challenges can install the Arc agent.
   name                = local.vm_name
   computer_name       = local.vm_name
   resource_group_name = module.resource_group.name
