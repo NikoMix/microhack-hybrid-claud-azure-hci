@@ -1,0 +1,35 @@
+# Copy to terraform.tfvars and adjust. (terraform.tfvars is gitignored.)
+
+# Required: must match the initials used for the shared base environment.
+initials = "abc"
+
+# Optional overrides:
+# location = "swedencentral"
+
+# By default the module deploys the vault + backup policy + Defender for Servers
+# P2, but does NOT yet protect the base VM. Flip this to true (after the base VM
+# exists and is running) to register it as a protected backup item.
+# protect_base_vm = true
+
+# Cost-guard knobs:
+# storage_mode_type     = "LocallyRedundant"   # LocallyRedundant | ZoneRedundant | GeoRedundant
+# retention_daily_count = 7                     # daily recovery points to keep
+# vm_backup_time        = "23:00"               # HH:MM in backup_timezone
+# backup_timezone       = "W. Europe Standard Time"
+
+# Set false where you may NOT change the subscription Defender plan.
+# enable_defender_for_servers = true
+
+# Optional: stream vault diagnostics to the shared Log Analytics workspace.
+# Get it with:
+#   terraform -chdir=../../infra/terraform/base output -raw log_analytics_workspace_id
+# log_analytics_workspace_id = "/subscriptions/.../workspaces/log-mhb-abc"
+
+# subscription_id = "00000000-0000-0000-0000-000000000000"
+
+# tags = {
+#   workload    = "azure-local-microhack"
+#   environment = "lab"
+#   challenge   = "03-resiliency"
+#   owner       = "abc"
+# }

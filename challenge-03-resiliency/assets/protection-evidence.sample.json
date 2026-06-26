@@ -1,0 +1,48 @@
+{
+  "_comment": "SAMPLE evidence bundle for Challenge 03. Produced by scripts/03-collect-evidence.sh. Values are illustrative placeholders, not real data — regenerate against your own subscription.",
+  "evidence_type": "challenge-03-resiliency-protection-evidence",
+  "module_b_controls": ["B.1.1", "B.2.1", "B.4.2"],
+  "generated_at": "2026-01-15T13:42:07Z",
+  "subscription_id": "00000000-0000-0000-0000-000000000000",
+  "resource_group": "rg-mhb-abc",
+  "recovery_services_vault": "rsv-mhb-abc-03",
+  "protected_vm": "vm-mhb-abc",
+  "backup": {
+    "items": [
+      {
+        "name": "vm-mhb-abc",
+        "protectionState": "Protected",
+        "lastBackupStatus": "Completed",
+        "lastRecoveryPoint": "2026-01-15T01:11:54Z",
+        "policyName": "bkpol-mhb-abc-03",
+        "healthStatus": "Passed"
+      }
+    ],
+    "recent_jobs": [
+      {
+        "operation": "Backup",
+        "status": "Completed",
+        "startTime": "2026-01-15T01:00:12Z",
+        "entity": "vm-mhb-abc"
+      },
+      {
+        "operation": "ConfigureBackup",
+        "status": "Completed",
+        "startTime": "2026-01-14T14:22:48Z",
+        "entity": "vm-mhb-abc"
+      }
+    ]
+  },
+  "defender_for_cloud": {
+    "for_servers": {
+      "name": "VirtualMachines",
+      "tier": "Standard",
+      "subPlan": "P2"
+    },
+    "secure_score": {
+      "current": 38.0,
+      "max": 58.0,
+      "percentage": 0.6552
+    }
+  }
+}
