@@ -1,0 +1,12 @@
+challenge,resource,service_family,candidate_acr_category,consumption_signal,evidence_path,eligibility
+challenge-00-setup,Server-to-migrate VM (base landing zone),Azure Compute (IaaS),Azure Virtual Machines,vCPU-hours + managed disk GB-month,evidence-package/b1.1-implementation/inventory/resource-list.json,Confirm in PDF
+challenge-00-setup,Log Analytics workspace,Azure Monitor,Azure Monitor / Log Analytics,Ingestion GB + retention GB-month,evidence-package/b1.1-implementation/inventory/resource-list.json,Confirm in PDF
+challenge-01-arc-foundations,Arc-enabled server (Connected Machine agent),Azure Arc,Azure Arc hybrid management,Arc-enabled resource + management add-ons,evidence-package/b1.1-implementation/arc-onboarding/azcmagent-show.txt,Confirm in PDF
+challenge-02-observability,Azure Monitor + Arc Insights,Azure Monitor,Azure Monitor / Log Analytics,Ingestion GB + alert rules + data collection rules,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF
+challenge-02-observability,Azure Update Manager,Azure Update Manager,Azure Update Manager,Periodic assessment per Arc machine,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF
+challenge-03-resiliency,Azure Backup (Recovery Services vault),Azure Backup,Azure Backup,Protected instances + backup storage GB-month,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF
+challenge-03-resiliency,Azure Site Recovery,Azure Site Recovery,Azure Site Recovery,Instances replicating,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF
+challenge-03-resiliency,Microsoft Defender for Cloud (Servers Plan 2),Microsoft Defender for Cloud,Microsoft Defender for Cloud,Protected server-hours,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF
+challenge-04-aks-arc,Arc-enabled Kubernetes / AKS enabled by Azure Arc,Azure Arc-enabled Kubernetes,Azure Kubernetes Service / Azure Arc,vCPU-hours of Arc-enabled cluster + extensions,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF
+challenge-04-aks-arc,Azure Monitor container insights,Azure Monitor,Azure Monitor / Log Analytics,Container log ingestion GB,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF
+challenge-04-aks-arc,Flux GitOps (Arc configuration extension),Azure Arc,Azure Arc hybrid management,Per-cluster configuration,evidence-package/b2.1-acr/cost-export-2026Qx.csv,Confirm in PDF

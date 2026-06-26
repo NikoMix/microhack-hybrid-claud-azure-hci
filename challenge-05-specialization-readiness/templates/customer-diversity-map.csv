@@ -1,0 +1,4 @@
+customer_ref,industry_segment,region,engagement_type,azure_local_arc_workload,qualifying_window,distinct_customer_evidence,acr_contribution,status
+Customer-A,[PLACEHOLDER — industry],[PLACEHOLDER — region],Production deployment,Azure Arc-enabled servers + Azure Monitor,[PLACEHOLDER — see official Module B control PDF],[PLACEHOLDER — SOW / tenant ID / case ref],Confirm in PDF,Won
+Customer-B,[PLACEHOLDER — industry],[PLACEHOLDER — region],Migration + resiliency,Azure Backup + Azure Site Recovery,[PLACEHOLDER — see official Module B control PDF],[PLACEHOLDER — SOW / tenant ID / case ref],Confirm in PDF,In delivery
+Customer-C,[PLACEHOLDER — industry],[PLACEHOLDER — region],Modern workloads,AKS enabled by Azure Arc + GitOps,[PLACEHOLDER — see official Module B control PDF],[PLACEHOLDER — SOW / tenant ID / case ref],Confirm in PDF,Won

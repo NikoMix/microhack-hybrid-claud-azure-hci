@@ -1,0 +1,4 @@
+customer_ref,industry_segment,region,engagement_type,azure_local_arc_workload,qualifying_window,distinct_customer_evidence,acr_contribution,status
+Customer-A,Manufacturing,Sweden,Production deployment,Azure Arc-enabled servers + Azure Monitor,[PLACEHOLDER — see official Module B control PDF],SOW-NWC-A-2026 / claimed tenant,Confirm in PDF,Won
+Customer-B,Healthcare,Norway,Migration + resiliency,Azure Backup + Azure Site Recovery,[PLACEHOLDER — see official Module B control PDF],SOW-NWC-B-2026 / deal-id 100245,Confirm in PDF,In delivery
+Customer-C,Retail,Denmark,Modern workloads,AKS enabled by Azure Arc + GitOps,[PLACEHOLDER — see official Module B control PDF],SOW-NWC-C-2026 / case 7781,Confirm in PDF,Won
