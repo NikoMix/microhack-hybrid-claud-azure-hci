@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo
+  namespace: contoso-shop
+  labels:
+    app.kubernetes.io/name: podinfo
+    app.kubernetes.io/part-of: contoso-shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podinfo
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podinfo
+        app.kubernetes.io/part-of: contoso-shop
+    spec:
+      # Pod-level security context — satisfies the PSA "restricted" profile.
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: podinfo
+          # podinfo is the canonical Flux sample app (Apache-2.0), pulled
+          # anonymously from GitHub Container Registry.
+          image: ghcr.io/stefanprodan/podinfo:6.14.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9898
+              protocol: TCP
+          command:
+            - ./podinfo
+            - --port=9898
+            - --level=info
+          # Container-level security context — completes "restricted" compliance.
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 5m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
