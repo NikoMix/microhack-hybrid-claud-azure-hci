@@ -12,20 +12,29 @@ ok()   { printf '\033[1;32m✓ %s\033[0m\n' "$*"; }
 BIN_DIR="/usr/local/bin"
 
 log "Updating apt and installing base utilities"
-sudo apt-get update -y >/dev/null 2>&1 || warn "apt-get update failed"
-sudo apt-get install -y --no-install-recommends shellcheck jq unzip >/dev/null 2>&1 \
-  && ok "shellcheck, jq, unzip installed" || warn "apt packages failed"
+if sudo apt-get update -y >/dev/null 2>&1; then ok "apt-get updated"; else warn "apt-get update failed"; fi
+if sudo apt-get install -y --no-install-recommends shellcheck jq unzip >/dev/null 2>&1; then
+  ok "shellcheck, jq, unzip installed"
+else
+  warn "apt packages failed"
+fi
 
 install_task() {
   log "Installing go-task (Taskfile runner)"
-  sh -c "$(curl -fsSL https://taskfile.dev/install.sh)" -- -d -b "$BIN_DIR" >/dev/null 2>&1 \
-    && ok "task installed: $(task --version 2>/dev/null)" || warn "task install failed"
+  if sh -c "$(curl -fsSL https://taskfile.dev/install.sh)" -- -d -b "$BIN_DIR" >/dev/null 2>&1; then
+    ok "task installed: $(task --version 2>/dev/null)"
+  else
+    warn "task install failed"
+  fi
 }
 
 install_flux() {
   log "Installing Flux CLI (GitOps)"
-  curl -fsSL https://fluxcd.io/install.sh | sudo bash >/dev/null 2>&1 \
-    && ok "flux installed: $(flux --version 2>/dev/null)" || warn "flux install failed"
+  if curl -fsSL https://fluxcd.io/install.sh | sudo bash >/dev/null 2>&1; then
+    ok "flux installed: $(flux --version 2>/dev/null)"
+  else
+    warn "flux install failed"
+  fi
 }
 
 install_gitleaks() {
@@ -35,7 +44,7 @@ install_gitleaks() {
   ver="${ver:-v8.21.2}"
   tarball="gitleaks_${ver#v}_linux_x64.tar.gz"
   if curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/${ver}/${tarball}" -o /tmp/gl.tgz 2>/dev/null; then
-    sudo tar -xzf /tmp/gl.tgz -C "$BIN_DIR" gitleaks 2>/dev/null && ok "gitleaks $ver installed" || warn "gitleaks extract failed"
+    if sudo tar -xzf /tmp/gl.tgz -C "$BIN_DIR" gitleaks 2>/dev/null; then ok "gitleaks $ver installed"; else warn "gitleaks extract failed"; fi
   else
     warn "gitleaks download failed"
   fi
@@ -43,8 +52,12 @@ install_gitleaks() {
 
 install_actionlint() {
   log "Installing actionlint (workflow linter)"
-  bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) >/dev/null 2>&1 \
-    && sudo mv ./actionlint "$BIN_DIR/" 2>/dev/null && ok "actionlint installed" || warn "actionlint install failed"
+  if bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) >/dev/null 2>&1 \
+    && sudo mv ./actionlint "$BIN_DIR/" 2>/dev/null; then
+    ok "actionlint installed"
+  else
+    warn "actionlint install failed"
+  fi
 }
 
 install_lychee() {
@@ -52,7 +65,7 @@ install_lychee() {
   local url
   url="https://github.com/lycheeverse/lychee/releases/latest/download/lychee-x86_64-unknown-linux-gnu.tar.gz"
   if curl -fsSL "$url" -o /tmp/lychee.tgz 2>/dev/null; then
-    sudo tar -xzf /tmp/lychee.tgz -C "$BIN_DIR" lychee 2>/dev/null && ok "lychee installed" || warn "lychee extract failed"
+    if sudo tar -xzf /tmp/lychee.tgz -C "$BIN_DIR" lychee 2>/dev/null; then ok "lychee installed"; else warn "lychee extract failed"; fi
   else
     warn "lychee download failed"
   fi
@@ -63,20 +76,20 @@ install_python_tools() {
   python3 -m pip install --user --quiet pipx >/dev/null 2>&1 || warn "pipx bootstrap failed"
   python3 -m pipx ensurepath >/dev/null 2>&1 || true
   export PATH="$HOME/.local/bin:$PATH"
-  pipx install checkov >/dev/null 2>&1 && ok "checkov installed" || warn "checkov install failed"
-  pipx install pre-commit >/dev/null 2>&1 && ok "pre-commit installed" || warn "pre-commit install failed"
+  if pipx install checkov >/dev/null 2>&1; then ok "checkov installed"; else warn "checkov install failed"; fi
+  if pipx install pre-commit >/dev/null 2>&1; then ok "pre-commit installed"; else warn "pre-commit install failed"; fi
 }
 
 install_node_tools() {
   log "Installing Node CLI tools (markdownlint-cli2, GitHub Copilot CLI)"
-  npm install -g markdownlint-cli2 >/dev/null 2>&1 && ok "markdownlint-cli2 installed" || warn "markdownlint-cli2 failed"
-  npm install -g @github/copilot >/dev/null 2>&1 && ok "GitHub Copilot CLI installed" || warn "Copilot CLI install failed (run 'npm i -g @github/copilot' later)"
+  if npm install -g markdownlint-cli2 >/dev/null 2>&1; then ok "markdownlint-cli2 installed"; else warn "markdownlint-cli2 failed"; fi
+  if npm install -g @github/copilot >/dev/null 2>&1; then ok "GitHub Copilot CLI installed"; else warn "Copilot CLI install failed (run 'npm i -g @github/copilot' later)"; fi
 }
 
 register_hooks() {
   if command -v pre-commit >/dev/null 2>&1; then
     log "Installing git pre-commit hooks"
-    pre-commit install >/dev/null 2>&1 && ok "pre-commit hooks installed" || warn "pre-commit install hook failed"
+    if pre-commit install >/dev/null 2>&1; then ok "pre-commit hooks installed"; else warn "pre-commit install hook failed"; fi
   fi
 }
 

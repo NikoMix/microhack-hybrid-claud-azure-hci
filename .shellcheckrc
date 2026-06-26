@@ -1,0 +1,7 @@
+# ShellCheck configuration - https://www.shellcheck.net
+# All lab scripts target bash.
+shell=bash
+external-sources=true
+# Low-noise optional checks kept on as code-smell telemetry.
+enable=add-default-case
+enable=deprecate-which

@@ -16,6 +16,9 @@ credentials.json
 !*.tfvars.example
 crash.log
 crash.*.log
+# Provider lock files are environment-resolved (Codespaces = linux_amd64) so labs
+# always pull the latest matching providers; do not commit per-platform locks.
+.terraform.lock.hcl
 .terraform.lock.hcl.bak
 override.tf
 override.tf.json
