@@ -1,0 +1,21 @@
+# Copy to terraform.tfvars and adjust. (terraform.tfvars is gitignored.)
+
+# Required: the same pupil initials used for the shared base environment.
+initials = "abc"
+
+# Optional overrides:
+# location = "swedencentral"
+
+# Policy behaviour (defaults shown):
+# policy_effect              = "audit"   # audit | deny | disabled
+# policy_enforce             = true
+# policy_excluded_namespaces = ["kube-system", "gatekeeper-system", "azure-arc", "flux-system"]
+
+# subscription_id = "00000000-0000-0000-0000-000000000000"
+
+# tags = {
+#   workload    = "azure-local-microhack"
+#   environment = "lab"
+#   challenge   = "04-aks-arc"
+#   owner       = "abc"
+# }
