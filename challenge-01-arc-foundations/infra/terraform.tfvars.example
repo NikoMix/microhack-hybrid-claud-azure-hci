@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars and set your pupil initials. Do not commit terraform.tfvars.
+initials = "abc"
+
+# Optional overrides (defaults shown):
+# location             = "swedencentral"
+# enforce_policy       = false
+# include_arc_machines = "true"

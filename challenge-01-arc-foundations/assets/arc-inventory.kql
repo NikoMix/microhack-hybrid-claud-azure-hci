@@ -1,0 +1,40 @@
+// arc-inventory.kql — Azure Resource Graph queries for Challenge 01 (Module B B.1.1)
+// Run in the Azure portal (Resource Graph Explorer) or with the Azure CLI:
+//   az graph query -q "<query>" -o table
+// Replace <initials> with your pupil initials (e.g. abc).
+
+// ---------------------------------------------------------------------------
+// 1. Inventory: list the Arc-enabled server-to-migrate and its key attributes.
+// ---------------------------------------------------------------------------
+resources
+| where type =~ "microsoft.hybridcompute/machines"
+| where resourceGroup =~ "rg-mhb-<initials>"
+| extend status       = tostring(properties.status),
+         agentVersion = tostring(properties.agentVersion),
+         osName       = tostring(properties.osName),
+         osSku        = tostring(properties.osSku),
+         osVersion    = tostring(properties.osVersion),
+         lastSeen     = tostring(properties.lastStatusChange)
+| project name, status, agentVersion, osName, osSku, osVersion, location, resourceGroup, lastSeen, tags
+| order by name asc
+
+// ---------------------------------------------------------------------------
+// 2. Governance: confirm the required tags are present on the Arc machine.
+//    Flags any machine missing a governance tag (Module B evidence hygiene).
+// ---------------------------------------------------------------------------
+resources
+| where type =~ "microsoft.hybridcompute/machines"
+| where resourceGroup =~ "rg-mhb-<initials>"
+| extend missingTags = set_difference(
+    dynamic(["Datacenter", "Workload", "Environment", "ManagedBy", "ModuleBControl"]),
+    bag_keys(tags))
+| extend isCompliant = array_length(missingTags) == 0
+| project name, isCompliant, missingTags, tags
+
+// ---------------------------------------------------------------------------
+// 3. Fleet view (optional): count Arc machines by status across the subscription.
+// ---------------------------------------------------------------------------
+resources
+| where type =~ "microsoft.hybridcompute/machines"
+| summarize machines = count() by status = tostring(properties.status)
+| order by machines desc

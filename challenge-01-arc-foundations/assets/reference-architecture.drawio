@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net" agent="microhack-azure-local" version="24.7.7">
+  <diagram id="arc-foundations-c01" name="Challenge 01 — Arc Foundations">
+    <mxGraphModel dx="1280" dy="760" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1320" pageHeight="540" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Challenge 01 — Azure Arc Foundations (Module B · B.1.1)" style="text;html=1;fontSize=16;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="8" width="1240" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Zones -->
+        <mxCell id="zoneA" value="On-premises / edge — Contoso HQ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="48" width="250" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="zoneB" value="Connectivity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="48" width="180" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="zoneC" value="Azure Arc control plane" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f2fb;strokeColor=#1f78b4;verticalAlign=top;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="48" width="210" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="zoneD" value="Azure management — Day-2 (2025/2026)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f2fb;strokeColor=#1f78b4;verticalAlign=top;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="770" y="48" width="230" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="zoneE" value="Governance &amp; evidence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf7ea;strokeColor=#2e7d32;verticalAlign=top;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="48" width="250" height="470" as="geometry" />
+        </mxCell>
+
+        <!-- Zone A children -->
+        <mxCell id="app3tier" value="3-tier application&lt;br&gt;(Web · App · DB)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="92" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vmware" value="VMware vSphere estate&lt;br&gt;(migration source)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="186" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="server2migrate" value="server-to-migrate VM&lt;br&gt;(Connected Machine agent)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="262" width="210" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="imds" value="Lab only: IMDS block&lt;br&gt;169.254.169.254 → DROP&lt;br&gt;(VM presents as off-Azure)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="60" y="352" width="210" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Zone B children -->
+        <mxCell id="agent" value="azcmagent connect&lt;br&gt;(service principal,&lt;br&gt;least privilege)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="335" y="120" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway" value="Arc gateway&lt;br&gt;HTTPS 443&lt;br&gt;(minimal endpoints)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="335" y="248" width="150" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Zone C children -->
+        <mxCell id="hybridcompute" value="Microsoft.HybridCompute/&lt;br&gt;machines&lt;br&gt;(Azure resource projection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1f78b4;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="545" y="116" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="identity" value="Arc-issued managed&lt;br&gt;identity (Entra ID)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1f78b4;" vertex="1" parent="1">
+          <mxGeometry x="545" y="250" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Zone D children -->
+        <mxCell id="monitor" value="Azure Monitor + Arc Insights" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1f78b4;" vertex="1" parent="1">
+          <mxGeometry x="785" y="86" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="updatemgr" value="Azure Update Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1f78b4;" vertex="1" parent="1">
+          <mxGeometry x="785" y="150" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="defender" value="Defender for Servers Plan 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1f78b4;" vertex="1" parent="1">
+          <mxGeometry x="785" y="214" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="bcdr" value="Azure Backup / Site Recovery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1f78b4;" vertex="1" parent="1">
+          <mxGeometry x="785" y="278" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="machineconfig" value="Machine configuration&lt;br&gt;(guest configuration)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1f78b4;" vertex="1" parent="1">
+          <mxGeometry x="785" y="342" width="200" height="58" as="geometry" />
+        </mxCell>
+
+        <!-- Zone E children -->
+        <mxCell id="tags" value="Governance tags&lt;br&gt;(Datacenter, Workload,&lt;br&gt;Environment, ManagedBy…)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="96" width="210" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="policy" value="Azure Policy&lt;br&gt;compute security baseline&lt;br&gt;(IncludeArcMachines=true)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#2e7d32;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="190" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="arg" value="Azure Resource Graph&lt;br&gt;(KQL inventory export)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="296" width="210" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" edge="1" parent="1" source="server2migrate" target="agent">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" edge="1" parent="1" source="agent" target="gateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" edge="1" parent="1" source="gateway" target="hybridcompute">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" edge="1" parent="1" source="hybridcompute" target="monitor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" edge="1" parent="1" source="hybridcompute" target="machineconfig">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;dashed=1;" edge="1" parent="1" source="machineconfig" target="policy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" edge="1" parent="1" source="hybridcompute" target="tags">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;" edge="1" parent="1" source="policy" target="arg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
