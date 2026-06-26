@@ -1,0 +1,9 @@
+# Live evidence captured by scripts/03-collect-evidence.sh — keep only the committed sample.
+# Order matters: ignore the live bundles first, then re-include the sample as the last rule.
+protection-evidence.*.json
+assets/protection-evidence.*.json
+!protection-evidence.sample.json
+!assets/protection-evidence.sample.json
+
+# Terraform working files (lock file is not committed elsewhere in this repo).
+.terraform.lock.hcl
