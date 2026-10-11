@@ -1,0 +1,35 @@
+# Example variables for Challenge 02 — copy to terraform.tfvars and edit.
+# Do NOT commit terraform.tfvars (it is git-ignored).
+
+# Your initials (2-5 lowercase alphanumeric) — must match the base environment.
+initials = "abc"
+
+# Region — must match the shared base environment.
+location = "swedencentral"
+
+# Reuse the shared base Log Analytics workspace. Get the ID from the base root:
+#   terraform -chdir=../../infra/terraform/base output -raw log_analytics_workspace_id
+log_analytics_workspace_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-mhb-abc/providers/Microsoft.OperationalInsights/workspaces/log-mhb-abc"
+
+# Machine to monitor. Set this to bind the DCRs to a target. Use either:
+#   - the Arc-enabled server from Challenge 01:
+#       /subscriptions/<sub>/resourceGroups/rg-mhb-abc/providers/Microsoft.HybridCompute/machines/<name>
+#   - or the base Azure VM:
+#       /subscriptions/<sub>/resourceGroups/rg-mhb-abc/providers/Microsoft.Compute/virtualMachines/<name>
+# Leave commented to provision the rules without associating them yet.
+# monitored_resource_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-mhb-abc/providers/Microsoft.HybridCompute/machines/server-to-migrate"
+
+# Optional: email address for alert notifications.
+# alert_email = "ops@example.com"
+
+# Optional overrides (sensible defaults shown).
+# resource_group_name                   = "rg-mhb-abc"
+# subscription_id                       = "00000000-0000-0000-0000-000000000000"
+# enable_change_tracking                = true
+# enable_dynamic_maintenance_assignment = true
+# maintenance_recur_every               = "1Day"
+# maintenance_start_date_time           = "2026-01-05 02:00"
+# maintenance_time_zone                 = "W. Europe Standard Time"
+# maintenance_duration                  = "02:00"
+# maintenance_reboot_setting            = "IfRequired"
+# maintenance_classifications           = ["Critical", "Security"]

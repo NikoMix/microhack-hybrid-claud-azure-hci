@@ -1,0 +1,11 @@
+{
+  // markdownlint-cli2 runner options. Lint *rules* live in .markdownlint.jsonc.
+  // Respect .gitignore and explicitly skip vendored directories so local runs
+  // after `terraform init` / `npm install` don't lint downloaded module docs.
+  "gitignore": true,
+  "ignores": [
+    "**/.terraform/**",
+    "**/node_modules/**",
+    "**/.git/**"
+  ]
+}

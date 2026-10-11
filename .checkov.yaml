@@ -1,0 +1,21 @@
+# Checkov configuration — auto-loaded from the repository root by both local
+# runs (`checkov -d .`) and the CI "Security scan" job (bridgecrewio/checkov-action).
+# Docs: https://www.checkov.io/2.Basics/Configuring%20Checkov.html
+#
+# Single repo-wide skip, documented once instead of an inline comment per module:
+#
+#   CKV_TF_1 — "Ensure Terraform module sources use a commit hash"
+#   Does NOT apply to this Azure Verified Modules (AVM)-first repository. Every
+#   module is an AVM pinned to an immutable semantic version from the public
+#   Terraform Registry (e.g. Azure/avm-res-*-/azurerm = "x.y.z"), which is the
+#   Microsoft-recommended consumption pattern. Commit-hash pinning is only
+#   meaningful for raw git:: sources and is not supported for registry modules,
+#   so the check is a guaranteed false-positive here.
+#
+# Resource-specific, intentional lab waivers (CKV_AZURE_50 VM extensions,
+# CKV_AZURE_119 NIC public IP) are kept as inline `# checkov:skip=` comments on
+# the exact base-lab-VM resources so they do not mask findings elsewhere.
+framework:
+  - terraform
+skip-check:
+  - CKV_TF_1

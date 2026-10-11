@@ -1,0 +1,10 @@
+# Default owners for everything in this repository.
+* @NikoMix
+
+# AI assets — Copilot custom agents, skills, and MCP configuration.
+/.github/agents/   @NikoMix
+/.github/skills/   @NikoMix
+/.github/mcp/      @NikoMix
+
+# Infrastructure as Code.
+/infra/            @NikoMix

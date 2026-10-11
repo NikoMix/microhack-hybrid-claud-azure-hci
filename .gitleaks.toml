@@ -1,0 +1,21 @@
+# gitleaks configuration — https://github.com/gitleaks/gitleaks
+# Extends the default ruleset and adds lab-specific allowlists.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlisted paths and placeholders for training material"
+paths = [
+  '''.*\.sample$''',
+  '''.*\.example$''',
+  '''.*/assets/.*''',
+  '''package-lock\.json$''',
+]
+# Placeholder tokens used in lab instructions (never real secrets).
+regexes = [
+  '''<YOUR_[A-Z0-9_]+>''',
+  '''00000000-0000-0000-0000-000000000000''',
+  '''xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx''',
+  '''REPLACE_ME''',
+  '''CHANGEME''',
+]

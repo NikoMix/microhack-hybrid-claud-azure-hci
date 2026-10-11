@@ -1,0 +1,47 @@
+# Dependabot — keep all lab dependencies current and vulnerability-free.
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels: ["dependencies", "ci"]
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: devcontainers
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels: ["dependencies", "devcontainer"]
+    commit-message:
+      prefix: "build"
+
+  - package-ecosystem: terraform
+    directories:
+      - "/infra/terraform/base"
+      - "/infra/terraform/modules"
+      - "/challenge-*/infra"
+    schedule:
+      interval: weekly
+    labels: ["dependencies", "terraform"]
+    commit-message:
+      prefix: "build"
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels: ["dependencies", "python"]
+    commit-message:
+      prefix: "build"
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels: ["dependencies", "npm"]
+    commit-message:
+      prefix: "build"

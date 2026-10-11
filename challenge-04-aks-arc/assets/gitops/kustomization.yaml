@@ -1,0 +1,8 @@
+# Kustomization built by the Flux kustomize-controller (configured via
+# `az k8s-configuration flux create ... --kustomization path=...`).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - deployment.yaml
+  - service.yaml

@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "github.copilot",
+    "github.copilot-chat",
+    "hashicorp.terraform",
+    "ms-azuretools.vscode-azureterraform",
+    "ms-azuretools.vscode-azureresourcegroups",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "redhat.vscode-yaml",
+    "davidanson.vscode-markdownlint",
+    "timonwong.shellcheck",
+    "github.vscode-github-actions",
+    "esbenp.prettier-vscode"
+  ]
+}

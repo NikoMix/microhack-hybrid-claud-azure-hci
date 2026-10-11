@@ -1,0 +1,12 @@
+# ShellCheck configuration - https://www.shellcheck.net
+# All lab scripts target bash.
+shell=bash
+external-sources=true
+# Resolve `source`d libraries (e.g. lib/common.sh sourced via ${SCRIPT_DIR})
+# relative to each script's own directory, regardless of the caller's CWD.
+# Without this, CI (which lints from the repo root) raises SC1091 even though
+# the scripts run correctly. SCRIPTDIR is a built-in shellcheck token.
+source-path=SCRIPTDIR
+# Low-noise optional checks kept on as code-smell telemetry.
+enable=add-default-case
+enable=deprecate-which

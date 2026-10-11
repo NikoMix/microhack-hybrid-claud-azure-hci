@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: contoso-shop
+  labels:
+    app.kubernetes.io/part-of: contoso-shop
+    # Pod Security Admission — enforce the baseline standard, surface restricted
+    # violations as warnings/audit so trainers can show the upgrade path.
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn-version: latest
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/audit-version: latest
