@@ -69,7 +69,7 @@ module "user_assigned_identity" {
 # ---------------------------------------------------------------------------
 module "network_security_group" {
   source  = "Azure/avm-res-network-networksecuritygroup/azurerm"
-  version = "0.5.1"
+  version = "0.6.0"
 
   name                = local.nsg_name
   location            = var.location
