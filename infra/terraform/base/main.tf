@@ -55,7 +55,7 @@ module "log_analytics" {
 # ---------------------------------------------------------------------------
 module "user_assigned_identity" {
   source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
-  version = "0.5.0"
+  version = "0.5.3"
 
   name                = local.identity_name
   location            = var.location
