@@ -50,7 +50,7 @@ data "azurerm_virtual_machine" "base" {
 # ---------------------------------------------------------------------------
 module "recovery_services_vault" {
   source  = "Azure/avm-res-recoveryservices-vault/azurerm"
-  version = "1.1.11"
+  version = "1.3.3"
 
   name                = local.vault_name
   location            = var.location
