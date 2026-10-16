@@ -98,7 +98,7 @@ module "network_security_group" {
 # ---------------------------------------------------------------------------
 module "virtual_network" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version = "0.19.0"
+  version = "0.22.3"
 
   name             = local.vnet_name
   location         = var.location
