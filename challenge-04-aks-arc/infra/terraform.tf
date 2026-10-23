@@ -6,7 +6,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.0"
+      version = "~> 5.10"
     }
     # Required transitively by the AVM Data Collection Rule module (it provisions
     # the DCR through azapi and emits module telemetry via modtm).
