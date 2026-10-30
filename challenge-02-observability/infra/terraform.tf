@@ -5,7 +5,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.0"
+      version = "~> 5.11"
     }
     # Required transitively by the AVM maintenance-configuration module, which
     # provisions the Microsoft.Maintenance resource via azapi. Declared here so
