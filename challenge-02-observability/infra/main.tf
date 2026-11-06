@@ -265,7 +265,7 @@ resource "azurerm_application_insights_workbook" "observability" {
 module "maintenance_config" {
   # checkov:skip=CKV_TF_1:Registry-pinned Azure Verified Module (AVM-first repo convention); commit-hash pinning does not apply to Terraform Registry sources.
   source  = "Azure/avm-res-maintenance-maintenanceconfiguration/azurerm"
-  version = "0.1.0"
+  version = "0.2.0"
 
   name                = local.maintenance_config_name
   location            = var.location
